@@ -1,6 +1,3 @@
-# region Data Preprocessing
-# endregion
-
 # %% Importing the necessary library:
 
 import pandas as pd
@@ -33,15 +30,6 @@ print(data.isna().sum())
 # Can be done with all column at once:
 print(data.isin(['?']).sum())
 
-# region Can be done for each column: (Just Learning Phase)
-'''
-print("Number of sexual partners: ", data[data['Number of sexual partners'] == "?"].count().sum())
-print("First sexual intercourse: ", data[data['First sexual intercourse'] == "?"].count().sum())
-print("Num of pregnancies: ", data[data['Num of pregnancies'] == "?"].count().sum())
-print("Num of pregnancies: ", data[data['Num of pregnancies'] == "?"].count().sum())
-'''
-# endregion
-
 # %% Dropping the values which have more ? if values:
 
 print(data.shape)
@@ -66,34 +54,12 @@ if len(impute_data) > 0:
     data[impute_data.index] = SimpleImputer(strategy="median").fit_transform(data[impute_data.index])
 print(data.info())
 
-# region Can be done for each column by for loop: (Just Learning Phase, time consuming one)
-'''
-col = data.columns
-for i in col:
-    data.replace('?', np.mean(i) )
-    print(i)
-print(data.info())
-'''
-# endregion
-
 # %% Converting all data types as Float:
 
 data = data.astype(float)
 print(data.info())
 stats = data.describe()
 print(data.columns)
-
-# %% Detecting the outliers:[Not Necessary]
-
-'''
-outliers = boxplot_stats(data)
-outliers = pd.DataFrame(outliers)['fliers']
-outliers_meaning = ['Age', 'Number of sexual partners', 'First sexual intercourse', 'Num of pregnancies', 'Smokes (years)', 'Smokes (packs/year)', 'Hormonal Contraceptives (years)', 'IUD (years)']
-outliers_index = [0, 1, 2, 3, 5, 6, 7, 9, 11]
-outliers = outliers[outliers_index]
-for i, j in zip(outliers_meaning, outliers_index):
-    data = data[~data[i].isin(outliers[j])]
-'''
 
 # %% Finding out the classification classes:
 
